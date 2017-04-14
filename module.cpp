@@ -53,8 +53,6 @@ void OnClientCommand(edict_t *pEntity)
 			if (g_editor != pEntity)
 				RETURN_META(MRES_SUPERCEDE);
 
-			UTIL_ClientPrintAll(HUD_PRINTTALK, "pass jo");
-
 			const char *args[2];
 			args[0] = CMD_ARGV(2);
 			args[1] = CMD_ARGV(3);
@@ -109,22 +107,23 @@ void OnPlayerPreThink(edict_t *pEntity)
 
 		std::vector<std::shared_ptr<Waypoint>> waypoints = s_Map.GetWaypoints();
 
+		// There is no waypoint
 		if (waypoints.size() == 0)
 			RETURN_META(MRES_IGNORED);
 
-		std::sort(waypoints.begin(), waypoints.end(), 
-			[origin](const std::shared_ptr<Waypoint> &lhs, const std::shared_ptr<Waypoint> &rhs)
-			{
-				return (origin - *(lhs->GetPosition())).Length() < (origin - *(rhs->GetPosition())).Length();
-			}
-		);
+		// Sort the waypoints
+		std::sort(waypoints.begin(), waypoints.end(), [origin](const std::shared_ptr<Waypoint> &lhs, const std::shared_ptr<Waypoint> &rhs) {
+			return (origin - *(lhs->GetPosition())).Length() < (origin - *(rhs->GetPosition())).Length();
+		});
 
+		// Show only max 60 waypoints
 		int size = min(waypoints.size(), 60);
 
 		for (std::vector<std::shared_ptr<Waypoint>>::const_iterator it = waypoints.cbegin(); it != waypoints.cbegin() + size; ++it)
 		{
 			std::shared_ptr<Waypoint> pPoint = *it;
 
+			// Show a waypoint
 			MESSAGE_BEGIN(MSG_ONE_UNRELIABLE, SVC_TEMPENTITY, NULL, pEntity);
 				WRITE_BYTE(TE_BEAMPOINTS);
 				WRITE_COORD(pPoint->GetPosition()->x);
