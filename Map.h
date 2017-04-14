@@ -11,11 +11,11 @@ public:
 	Map();
 	~Map();
 
-	void CreateWaypoint(const Vector &origin, float radius, int flags);
+	std::shared_ptr<Waypoint> CreateWaypoint(const Vector &origin, float radius, int flags);
 	void RemoveWaypoint(std::shared_ptr<Waypoint> pWaypoint);
 
 	const std::vector<std::shared_ptr<Waypoint>> &GetWaypoints(void) const { return m_waypoints; }
-	std::shared_ptr<Waypoint> GetWaypointAt(int index) const;
+	int GetWaypointIndex(std::shared_ptr<Waypoint> pWaypoint) const;
 
 	std::shared_ptr<Waypoint> GetNearestWaypoint(const Vector &origin, float maxRadius) const;
 

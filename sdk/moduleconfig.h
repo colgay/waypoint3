@@ -14,6 +14,8 @@
 #ifndef __MODULECONFIG_H__
 #define __MODULECONFIG_H__
 
+#define _STDINT
+
 /** Module info
  * -The logtag is the tag that the module's log messages will be
  *   prepended with.
@@ -82,7 +84,7 @@
 /** All plugins loaded
  * Do forward functions init here (MF_RegisterForward)
  */
-//#define FN_AMXX_PLUGINSLOADED OnPluginsLoaded
+#define FN_AMXX_PLUGINSLOADED OnPluginsLoaded
 
 /** All plugins are about to be unloaded */
 //#define FN_AMXX_PLUGINSUNLOADING OnPluginsUnloading
@@ -128,11 +130,11 @@
 // #define FN_ClientDisconnect			ClientDisconnect			/* pfnClientDisconnect()		(wd) Player has left the game */
 // #define FN_ClientKill				ClientKill					/* pfnClientKill()				(wd) Player has typed "kill" */
 // #define FN_ClientPutInServer			ClientPutInServer			/* pfnClientPutInServer()		(wd) Client is entering the game */
- #define FN_ClientCommand				ClientCommand				/* pfnClientCommand()			(wd) Player has sent a command (typed or from a bind) */
+#define FN_ClientCommand				OnClientCommand				/* pfnClientCommand()			(wd) Player has sent a command (typed or from a bind) */
 // #define FN_ClientUserInfoChanged		ClientUserInfoChanged		/* pfnClientUserInfoChanged()	(wd) Client has updated their setinfo structure */
 // #define FN_ServerActivate			ServerActivate				/* pfnServerActivate()			(wd) Server is starting a new map */
 // #define FN_ServerDeactivate			ServerDeactivate			/* pfnServerDeactivate()		(wd) Server is leaving the map (shutdown or changelevel); SDK2 */
-// #define FN_PlayerPreThink			PlayerPreThink				/* pfnPlayerPreThink() */
+#define FN_PlayerPreThink				OnPlayerPreThink				/* pfnPlayerPreThink() */
 // #define FN_PlayerPostThink			PlayerPostThink				/* pfnPlayerPostThink() */
 // #define FN_StartFrame				StartFrame					/* pfnStartFrame() */
 // #define FN_ParmsNewLevel				ParmsNewLevel				/* pfnParmsNewLevel() */
@@ -213,7 +215,7 @@
 // #define FN_AllowLagCompensation_Post			AllowLagCompensation_Post
 
 // - GetEngineAPI functions
-// #define FN_PrecacheModel						PrecacheModel
+// #define FN_PrecacheModel						OnPrecacheModel
 // #define FN_PrecacheSound						PrecacheSound
 // #define FN_SetModel							SetModel
 // #define FN_ModelIndex						ModelIndex
@@ -252,7 +254,7 @@
 // #define FN_TraceTexture						TraceTexture
 // #define FN_TraceSphere						TraceSphere
 // #define FN_GetAimVector						GetAimVector
- #define FN_ServerCommand						ServerCommand
+// #define FN_ServerCommand						ServerCommand
 // #define FN_ServerExecute						ServerExecute
 // #define FN_engClientCommand					engClientCommand
 // #define FN_ParticleEffect					ParticleEffect

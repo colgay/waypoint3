@@ -11,10 +11,12 @@ Map::~Map()
 {
 }
 
-void Map::CreateWaypoint(const Vector &origin, float radius, int flags)
+std::shared_ptr<Waypoint> Map::CreateWaypoint(const Vector &origin, float radius, int flags)
 {
-	std::shared_ptr<Waypoint> pWaypoint(&origin, radius, flags);
+	std::shared_ptr<Waypoint> pWaypoint = std::shared_ptr<Waypoint>(new Waypoint(origin, radius, flags));
 	m_waypoints.push_back(pWaypoint);
+
+	return pWaypoint;
 }
 
 void Map::RemoveWaypoint(std::shared_ptr<Waypoint> pWaypoint)
@@ -22,9 +24,12 @@ void Map::RemoveWaypoint(std::shared_ptr<Waypoint> pWaypoint)
 	m_waypoints.erase(std::remove(m_waypoints.begin(), m_waypoints.end(), pWaypoint), m_waypoints.end());
 }
 
-std::shared_ptr<Waypoint> Map::GetWaypointAt(int index) const
+int Map::GetWaypointIndex(std::shared_ptr<Waypoint> pWaypoint) const
 {
-	return m_waypoints[index];
+	std::vector<std::shared_ptr<Waypoint>>::const_iterator it;
+	it = std::find(m_waypoints.cbegin(), m_waypoints.cend(), pWaypoint);
+
+	return std::distance(m_waypoints.cbegin(), it);
 }
 
 std::shared_ptr<Waypoint> Map::GetNearestWaypoint(const Vector &origin, float maxRadius) const
