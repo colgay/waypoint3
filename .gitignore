@@ -13,6 +13,11 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.vcxproj
+*.filters
+Debug/
+Release/
+
 
 # Windows shortcuts
 *.lnk
